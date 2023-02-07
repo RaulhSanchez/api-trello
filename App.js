@@ -1,6 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
+const userRoutes = require('./User/UserRouter')
+
+
 const app = express();
 
 app.use(function(req, res, next) {
@@ -11,10 +14,17 @@ app.use(function(req, res, next) {
 
 app.use(express.json()); 
 
+mongoose.connect('mongodb+srv://user:admin@cluster0.1dmkftf.mongodb.net/test', {
+    user:"user",
+    pass: "admin",
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('Conectado a la BBDD.'))
+    .catch((e) => console.log(e))
 
-app.get('/', function(req, res) {
-    res.json({ mensaje: '¡Hola Mundo!' })   
-  })
+
+app.use('/user',userRoutes)
 
 app.listen(process.env.PORT, () => console.log('Funcionando'))
 console.log(process.env.PORT)
