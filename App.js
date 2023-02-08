@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config()
 const userRoutes = require('./User/UserRouter')
 
 
+mongoose.set("strictQuery", false);
 const app = express();
 
 app.use(function(req, res, next) {
@@ -24,7 +25,6 @@ mongoose.connect('mongodb+srv://user:admin@cluster0.1dmkftf.mongodb.net/test', {
     .catch((e) => console.log(e))
 
 
-app.use('/user',userRoutes)
-
+app.use('/registerUser',userRoutes)
 app.listen(process.env.PORT, () => console.log('Funcionando'))
 console.log(process.env.PORT)
