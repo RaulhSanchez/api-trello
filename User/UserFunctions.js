@@ -4,8 +4,6 @@ const moment = require("moment")
 
 
 module.exports.erroLogs = async(err,res) => {
-    
-
     if(err.code=== 11000){
         res.send({
             error: 'Usuario existe',
@@ -16,21 +14,22 @@ module.exports.erroLogs = async(err,res) => {
     })
 }
 
-module.exports.verifyPass = (password)=>{
+
+module.exports.verifyPass = (password) => {
     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,1024}$/
     return regex.test(password)
 }
-module.exports.createHash = (password) => {
 
+module.exports.createHash = (password) => {
         let encrypted = bcrypt.hashSync(password, 10)
         return encrypted
-    
 }
-module.exports.compareHash = (passwordPlane, userPass) => {
 
+module.exports.compareHash = (passwordPlane, userPass) => {
     let comparation = bcrypt.compareSync(passwordPlane, userPass)
     return comparation
 }
+
 module.exports.createToken = (user) => {
     const payload = {
         data: user._id,

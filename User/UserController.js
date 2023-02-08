@@ -5,10 +5,9 @@ module.exports.createUser = async (req, res,err) => {
     try {
         const newUser = req.body;
         const setPas = method.verifyPass(newUser.password)
-        console.log(setPas)
+        //metodo para veirficar mail/si es corporativo admin si no user
         if(setPas){
-           const userCreated = await userData.create(newUser)
-            console.log(userCreated)
+            await userData.create(newUser)
             res.status(200).json({ user: 'Usuario creado' }); 
         }else{
             res.status(200).json({ user: 'La contraseña tiene que contener mínimo 8 carácteres con mayúsculas, minúsculas, números y carácteres especiáles $#!' }); 

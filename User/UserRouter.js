@@ -1,4 +1,4 @@
-const router = require('express').Router() //middwalre te sirve para conectar las rutas desde app central
+const router = require('express').Router() 
 const controller = require('./UserController')
 
 router.post('/singup',  controller.createUser )
