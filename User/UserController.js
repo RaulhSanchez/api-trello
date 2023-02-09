@@ -5,8 +5,9 @@ module.exports.createUser = async (req, res,err) => {
     try {
         const newUser = req.body;
         const setPas = method.verifyPass(newUser.password)
-        //metodo para veirficar mail/si es corporativo admin si no user
+        const setRole = method.setRole(newUser.role)
         if(setPas){
+            newUser.role = await setRole
             await userData.create(newUser)
             res.status(200).json({ user: 'Usuario creado' }); 
         }else{

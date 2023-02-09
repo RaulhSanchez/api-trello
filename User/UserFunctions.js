@@ -14,6 +14,18 @@ module.exports.erroLogs = async(err,res) => {
     })
 }
 
+module.exports.setRole = async (role) => {
+    console.log(role)
+
+    const roles = [
+        'user',
+        'streamer',
+        'admin'
+    ]
+    if(!role){
+        return  role = await roles[0];
+    }
+}
 
 module.exports.verifyPass = (password) => {
     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,1024}$/
@@ -37,5 +49,6 @@ module.exports.createToken = (user) => {
         iat: moment().unix(),
         exp: moment().add(1, 'days').unix()
     }
+    console.log(payload)
     return jwt.sign(payload, process.env.PORT)
 }
