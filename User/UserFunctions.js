@@ -3,27 +3,15 @@ const jwt = require("jsonwebtoken")
 const moment = require("moment")
 
 
-module.exports.erroLogs = async(err,res) => {
-    if(err.code=== 11000){
-        res.send({
-            error: 'Usuario existe',
-        })
-    }
-     res.send({
-        error: err.errors,
-    })
-}
 
 module.exports.setRole = async (role) => {
-    console.log(role)
-
     const roles = [
         'user',
         'streamer',
         'admin'
     ]
     if(!role){
-        return  role = await roles[0];
+        return roles[0];
     }
 }
 
@@ -51,4 +39,15 @@ module.exports.createToken = (user) => {
     }
     console.log(payload)
     return jwt.sign(payload, process.env.PORT)
+}
+
+module.exports.erroLogs = async(err,res) => {
+    if(err.code=== 11000){
+        res.send({
+            error: 'Usuario existe',
+        })
+    }
+     res.send({
+        error: err.errors,
+    })
 }
